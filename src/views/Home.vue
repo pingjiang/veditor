@@ -2,7 +2,10 @@
   <div class="home">
     <CounterInput class="mb-sm" :maxlength="30" />
 
-    <Editor :content="content" :options="editorOptions"/>
+    <Editor class="editor article-editor" :content="content" :options="editorOptions"
+      @input="handleChange"/>
+
+    <div class="article-content preview" v-html="content"></div>
 
     <Modal v-model="chooseFileModal" class="modal-noheader" width="685px"
       @on-ok="handleChoose">
@@ -75,6 +78,9 @@ export default {
     handleUploaded(file) {
       this.choosedFiles = file ? file.url : null;
     },
+    handleChange(content) {
+      this.content = content;
+    },
   },
 };
 </script>
@@ -89,4 +95,9 @@ export default {
     display: none;
   }
 }
+
+.editor {
+  height: 400px;
+}
+
 </style>
